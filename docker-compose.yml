@@ -1,0 +1,34 @@
+version: "3"
+services:
+    minecraft-store-backend-local:
+        container_name: minecraft-store-backend
+        build:
+            context: .
+            dockerfile: tools/docker/Dockerfile.localhost
+        image: minecraft-store-backend
+        volumes:
+            - ./logs:/app/react/logs
+        ports:
+            - "5000:5000"
+    minecraft-store-backend-dev:
+        container_name: minecraft-store-backend
+        build:
+            context: .
+            dockerfile: tools/docker/Dockerfile.development
+        image: minecraft-store-backend
+        volumes:
+            - ./logs:/app/react/logs
+        ports:
+            - "5000:5000"
+        restart: always
+    minecraft-store-backend-prod:
+        container_name: minecraft-store-backend
+        build:
+            context: .
+            dockerfile: tools/docker/Dockerfile.production
+        image: minecraft-store-backend
+        volumes:
+            - ./logs:/app/react/logs
+        ports:
+            - "5000:5000"
+        restart: always
