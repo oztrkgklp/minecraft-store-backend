@@ -9,7 +9,8 @@
     "start-prod": "export NODE_ENV=prod || SET \"NODE_ENV=prod\" && node src/index.js",
     "local": "nodemon --exec npm run start-local",
     "dev": "nodemon --exec npm run start-dev",
-    "prod": "nodemon --exec npm run start-prod"
+    "prod": "nodemon --exec npm run start-prod",
+    "gen-jwt-secret": "node -e \"console.log(require('crypto').randomBytes(256).toString('base64'));\""
   },
   "repository": {
     "type": "git",

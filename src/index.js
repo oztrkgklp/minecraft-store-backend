@@ -53,7 +53,7 @@ app.use(expressResult);
  * synchronizes database programmatically
  * CAUTION!: do not use alter or force option in production
  */
-// models.sequelize.sync({ alter: true, /* force: true */ }).then(() => console.log("Database synchronized"));
+models.sequelize.sync({ alter: true /* force: true */ }).then(() => console.log("Database synchronized"));
 
 const server = app.listen(constants.PORT, () => {
     console.log(`App started: http://localhost:${constants.PORT}`);

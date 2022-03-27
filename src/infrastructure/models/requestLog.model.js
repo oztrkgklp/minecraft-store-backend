@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
     // Model configuration
-    let RequestLog = sequelize.define("requestLog", {
+    let RequestLog = sequelize.define("RequestLog", {
         id: {
             allowNull: false,
             defaultValue: DataTypes.UUIDV4,
@@ -46,6 +46,9 @@ module.exports = (sequelize, DataTypes) => {
         resBody: {
             type: DataTypes.TEXT,
         },
+    }, {
+        paranoid: true,
+        timestamps: true,
     });
 
     // Model association
