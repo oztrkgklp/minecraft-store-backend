@@ -45,9 +45,22 @@ module.exports = {
     // Verified
     VERIFY: ["verified", "non-verified"],
     // User permissions
-    PERMISSION: ["0","1","2","3","4","5"],
+    PERMISSION: ["0", "1", "2", "3", "4", "5"],
     // Auth status
     AUTHENTICATION_STATUS: ["default", "2fa"],
+    // Expiration times
+    EXPIRATION: {
+        ACCESS_TOKEN: {
+            STR: "600s",
+            VALUE: 600,
+            UNIT: "seconds",
+        },
+        REFRESH_TOKEN: {
+            STR: "365d",
+            VALUE: 365,
+            UNIT: "days",
+        },
+    },
     // Errors
     ERROR,
 };
