@@ -1,5 +1,5 @@
 const authorization = require("../api/middlewares/authorization.middleware");
-// const { userAuthentication, externalAuthentication } = require("../middleware/authentication");
+const { userAuthentication, /* externalAuthentication */ } = require("../api/middlewares/authentication.middleware");
 
 const defineRoutes = (routes, version) => {
     // Define router
@@ -12,7 +12,7 @@ const defineRoutes = (routes, version) => {
 
         // Set handlers
         let handlers = [];
-        // if (endpoint.userAuthentication) handlers.push(userAuthentication);
+        if (endpoint.userAuthentication) handlers.push(userAuthentication);
         // if (endpoint.externalAuthentication) handlers.push(externalAuthentication);
         if (endpoint.authorization) handlers.push(authorization(endpoint.authorization));
         handlers = handlers.concat(endpoint.handlers);
