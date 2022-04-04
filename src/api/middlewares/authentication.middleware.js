@@ -82,3 +82,8 @@ const userAuthentication = (req, res, next) => {
             return res.status(401).send(returnObject);
         });
 };
+
+
+module.exports={
+    userAuthentication
+}

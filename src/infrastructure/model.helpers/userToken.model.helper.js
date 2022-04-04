@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const moment = require("moment");
 const { TokenIsNotValid } = require("../../domain/exceptions/exceptions");
+const constants = require("../../utils/constants");
 const { EXPIRATION } = require("../../utils/constants");
 
 module.exports = (Model) => {
@@ -26,7 +27,7 @@ module.exports = (Model) => {
         }
     };
 
-    Model.getNewAccessToken = (userId, expiredAccessToken, refreshToken, language) => {
+    Model.getNewAccessToken = (userId, expiredAccessToken, refreshToken, language = constants.DEFAULT_LANGUAGE) => {
         return this.findOne({ where: { userId: userId, acces: expiredAccessToken, refresh: refreshToken } }).then((result) => {
             if (result) {
                 const newAccessToken = jwt.sign({ id: userId }, process.env.JWT_ACCESS_SECRET, { expiresIn: EXPIRATION.ACCESS_TOKEN.STR }).toString();
@@ -39,7 +40,7 @@ module.exports = (Model) => {
         });
     };
 
-    Model.getNewRefreshToken = (userId, expiredRefreshToken, language) => {
+    Model.getNewRefreshToken = (userId, expiredRefreshToken, language = constants.DEFAULT_LANGUAGE) => {
         return this.findOne({ where: { userId: userId, refresh: expiredRefreshToken } }).then((result) => {
             if (result) {
                 const newRefreshToken = jwt.sign({ id: userId }, process.env.JWT_REFRESH_SECRET, { expiresIn: EXPIRATION.REFRESH_TOKEN.STR }).toString();
@@ -47,6 +48,20 @@ module.exports = (Model) => {
                     { refresh: newRefreshToken, refreshExpirationDate: moment().add(EXPIRATION.REFRESH_TOKEN.VALUE, EXPIRATION.REFRESH_TOKEN.UNIT) },
                     { where: { userId: userId } }
                 ).then(() => newRefreshToken);
+            } else {
+                throw new TokenIsNotValid("Token is not valid");
+            }
+        });
+    };
+
+    Model.getNewCSRFToken = (userId, expiredCSRFToken, language = constants.DEFAULT_LANGUAGE) => {
+        return this.findOne({ where: { userId: userId, csrf: expiredCSRFToken } }).then((result) => {
+            if (result) {
+                const newCSRFToken = jwt.sign({ id: userId }, process.env.JWT_CSRF_SECRET, { expiresIn: EXPIRATION.CSRF_TOKEN.STR }).toString();
+                return this.update(
+                    { csrf: newCSRFToken },
+                    { where: { userId: userId } }
+                ).then(() => newCSRFToken);
             } else {
                 throw new TokenIsNotValid("Token is not valid");
             }

@@ -6,7 +6,7 @@ module.exports = {
     // Port
     PORT: process.env.PORT || 5000,
     // Exposed Headers
-    EXPOSED_HEADERS: ["x-auth-access", "x-auth-refresh", "x-lang", "Origin", "X-Requested-With", "Content-Type", "Accept"],
+    EXPOSED_HEADERS: ["x-auth-access", "x-auth-refresh", "x-auth-csrf","x-lang", "Origin", "X-Requested-With", "Content-Type", "Accept"],
     // Response status
     RESPONSE_STATUS: {
         FAIL: "Fail",
@@ -23,6 +23,7 @@ module.exports = {
         AUTHENTICATION: {
             ACCESS: "x-auth-access",
             REFRESH: "x-auth-refresh",
+            CSRF: "x-auth-csrf",
         },
         LANGUAGE: "x-lang",
     },
@@ -59,6 +60,11 @@ module.exports = {
             STR: "365d",
             VALUE: 365,
             UNIT: "days",
+        },
+        CSRF_TOKEN: {
+            STR: "1ms",
+            VALUE: 1,
+            UNIT: "milliseconds",
         },
     },
     // Errors

@@ -18,6 +18,11 @@ module.exports = (sequelize, DataTypes) => {
                 notEmpty: true,
                 type: DataTypes.STRING,
             },
+            csrf: {
+                allowNull: false,
+                notEmpty: true,
+                type: DataTypes.STRING,
+            },
             accessExpirationDate: {
                 allowNull: false,
                 notEmpty: true,
